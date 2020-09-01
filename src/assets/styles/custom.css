@@ -1,0 +1,99 @@
+.el-icon-story{
+    background: url(../../../static/img/story-icon.png) center no-repeat;
+    background-size: cover;
+}
+.el-icon-story:before{
+    content: "替";
+    font-size: 16px;
+    visibility: hidden;
+}
+.el-icon-task{
+    background: url(../../../static/img/task-icon.png) center no-repeat;
+    background-size: cover;
+}
+.el-icon-task:before{
+    content: "替";
+    font-size: 16px;
+    visibility: hidden;
+}
+.el-icon-feature{
+    background: url(../../../static/img/feature-icon.png) center no-repeat;
+    background-size: cover;
+}
+.el-icon-feature:before{
+    content: "替";
+    font-size: 16px;
+    visibility: hidden;
+}
+.el-icon-baseInfo-focus{
+    background: url(../../../static/img/baseInfo-focus-icon.png) center no-repeat;
+    background-size: cover;
+}
+.el-icon-baseInfo-focus:before{
+    content: "替";
+    font-size: 16px;
+    visibility: hidden;
+}
+.el-icon-baseInfo-noFocus{
+    background: url(../../../static/img/baseInfo-noFocus-icon.png) center no-repeat;
+    background-size: cover;
+}
+.el-icon-baseInfo-noFocus:before{
+    content: "替";
+    font-size: 16px;
+    visibility: hidden;
+}
+.el-icon-priority-lower{
+    background: url(../../../static/img/priority-lower-icon.png) center no-repeat;
+    background-size: cover;
+}
+.el-icon-priority-lower:before{
+    content: "替";
+    font-size: 16px;
+    visibility: hidden;
+}
+.el-icon-priority-higher{
+    background: url(../../../static/img/priority-higher-icon.png) center no-repeat;
+    background-size: cover;
+}
+.el-icon-priority-higher:before{
+    content: "替";
+    font-size: 16px;
+    visibility: hidden;
+}
+.el-icon-priority-lowest{
+    background: url(../../../static/img/priority-lowest-icon.png) center no-repeat;
+    background-size: cover;
+}
+.el-icon-priority-lowest:before{
+    content: "替";
+    font-size: 16px;
+    visibility: hidden;
+}
+.el-icon-priority-highest{
+    background: url(../../../static/img/priority-highest-icon.png) center no-repeat;
+    background-size: cover;
+}
+.el-icon-priority-highest:before{
+    content: "替";
+    font-size: 16px;
+    visibility: hidden;
+}
+.el-icon-priority-ordinary{
+    background: url(../../../static/img/priority-ordinary-icon.png) center no-repeat;
+    background-size: cover;
+}
+.el-icon-priority-ordinary:before{
+    content: "替";
+    font-size: 16px;
+    visibility: hidden;
+}
+.el-icon-search{
+    background: url(../../../static/img/search-icon.png) center no-repeat;
+    background-size: cover;
+}
+.el-icon-search:before{
+    content: "替";
+    font-size: 16px;
+    visibility: hidden;
+}
