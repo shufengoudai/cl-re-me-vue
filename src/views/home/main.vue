@@ -114,7 +114,6 @@
                         :placeholder="this.$t('main.inputName')"
                         auto-complete="off"
                         ref="projectNameCheck"
-                        @blur="checkProjectName"
                     ></el-input>
                 </el-form-item>
                 <el-form-item :label="this.$t('main.identify')" prop="projectIdentify">
@@ -383,7 +382,7 @@ export default {
                 projectName: ""
             },
             search: "",
-            loading: true,
+            loading: false,
             formLoading: false,
             projects: [],
             formRules: {},
