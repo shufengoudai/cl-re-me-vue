@@ -1,5 +1,4 @@
 import { userInfo, getAuthType, loginName, loginByNoPwd, logout, loginPmis} from "../../api/auth/login";
-import { connect } from "../../api/notification/notification"
 import * as types from "../mutation-types";
 import qs from 'qs';
 import { constantRouterMap } from "../../router";
@@ -61,7 +60,6 @@ const actions = {
                                             commit(types.RECEIVE_ADMIN_TOKEN, data.token);
                                             commit(types.RECEIVE_ADMIN_AUTH_RULES, []);
                                             global.name = data.id;
-                                            connect(data.id);
                                         }
 
                                         resolve(response);
@@ -82,7 +80,6 @@ const actions = {
                                         commit(types.RECEIVE_ADMIN_TOKEN, data.token);
                                         commit(types.RECEIVE_ADMIN_AUTH_RULES, []);
                                         global.name = data.id;
-                                        connect(data.id);
                                     }
 
                                     resolve(response);

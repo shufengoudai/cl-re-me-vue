@@ -274,18 +274,6 @@
 
 <script>
 import { getAdminId } from "../../utils/auth";
-import {
-    getAllProjects,
-    searchProjects,
-    checkProjectName,
-    projectSave,
-    memberList,
-    getProject,
-    projectEdit,
-    deleteProject,
-    getUserIdentify,
-    getCompanyId
-    } from "../../api/project/project";
 import { formatDateStr } from "../../filtres";
 import { utcFormatToLocal } from "../../utils/utcFormatToLocal";
     const formJsonData = {
@@ -307,59 +295,6 @@ import { utcFormatToLocal } from "../../utils/utcFormatToLocal";
 export default {
     mounted: function() {
         this.query.userId = this.$store.state.admin.adminId;
-        getCompanyId(this.query)
-            .then(response => {
-                if (response.code) {
-                    if(document.getElementsByClassName("el-message").length>0){
-                        this.$message.closeAll();
-                    }
-                    this.$message.error(response.message);
-                }
-                if (response.data) {
-                    this.companyId = response.data.id;
-                    //this.formData.companyId = response.data.id;
-                }
-            });
-        getUserIdentify(this.query)
-            .then(response => {
-                if (response.code) {
-                    if(document.getElementsByClassName("el-message").length>0){
-                        this.$message.closeAll();
-                    }
-                    this.$message.error(response.message);
-                }
-                if (response.data) {
-                    this.buttonVisible = true;
-                }
-            });
-        getAllProjects(this.query)
-            .then(response => {
-                this.loading = false;
-                if (response.code) {
-                    if(document.getElementsByClassName("el-message").length>0){
-                        this.$message.closeAll();
-                    }
-                    this.$message.error(response.message);
-                }
-                this.projects = response.data.projects || [];
-            })
-            .catch(() => {
-                this.loading = false;
-                this.projects = [];
-            });
-        memberList(this.query)
-            .then(response => {
-            this.members = response.data;
-            this.allMembers[0].label =
-                this.$t("main.allMember") + " : " + this.members.length;
-            this.allMembers[0].children = this.members;
-        });
-        if (window.screen.height >= 1080) {
-            this.tableHeight = 705;
-        } else {
-            this.tableHeight = 530;
-        }
-
     },
     methods: {
         selectChanged(value) {
@@ -399,22 +334,6 @@ export default {
                 return formatDateStr(data, "yyyy年MM月dd日");
             }
         },
-        doSearch() {
-            this.query.projectName = this.search;
-            searchProjects(this.query)
-                .then(response => {
-                    if (response.code) {
-                        if(document.getElementsByClassName("el-message").length>0){
-                            this.$message.closeAll();
-                        }
-                        this.$message.error(response.message);
-                    }
-                    this.projects = response.data.projects || [];
-                })
-                .catch(() => {
-                    this.projects = [];
-                });
-        },
         // 显示表单
         handleForm() {
             this.mode = "add";
@@ -440,94 +359,7 @@ export default {
                 this.$refs["dataForm"].resetFields();
             }
         },
-        formSubmit() {
-            this.$refs["dataForm"].validate(valid => {
-                if (valid) {
-                    this.formLoading = true;
-                    this.formData.insAccountId = getAdminId();
-                    this.formData.companyId = this.companyId;
-                    let data = Object.assign({}, this.formData);
-
-                    if (this.mode == "add") {
-                        projectSave(data).then(response => {
-                            this.formLoading = false;
-                            if (response.code == 10) {
-                                if(document.getElementsByClassName("el-message").length>0){
-                                    this.$message.closeAll();
-                                }
-                                this.$message.error(response.message);
-                                return false;
-                            }
-                            this.$message.success(this.$t("main.operateSuccess"));
-                            this.formVisible = false;
-                            this.refreshProjects();
-                            // 刷新表单
-                            this.resetForm();
-                        });
-                    } else {
-                        projectEdit(data).then(response => {
-                            this.formLoading = false;
-                            if (response.code) {
-                                if(document.getElementsByClassName("el-message").length>0){
-                                    this.$message.closeAll();
-                                }
-                                this.$message.error(response.message);
-                                this.$refs.projectIdentifyCheck.focus();
-                                return false;
-                            }
-                            this.$message.success(this.$t("main.operateSuccess"));
-                            this.formVisible = false;
-                            this.refreshProjects();
-                            // 刷新表单
-                            this.resetForm();
-                        });
-                    }
-                }
-            });
-        },
         refreshProjects() {
-            getAllProjects(this.query)
-                .then(response => {
-                    if (response.code) {
-                        if(document.getElementsByClassName("el-message").length>0){
-                            this.$message.closeAll();
-                        }
-                        this.$message.error(response.message);
-                    }
-                    this.projects = response.data.projects || [];
-                })
-                .catch(() => {
-                    this.projects = [];
-                });
-        },
-        detailProject(id) {
-            this.mode = "edit";
-            getProject(id)
-                .then(response => {
-                    if (response.code) {
-                        if(document.getElementsByClassName("el-message").length>0){
-                            this.$message.closeAll();
-                        }
-                        this.$message.error(response.message);
-                    }
-                    this.formData = response.data;
-                    this.formVisible = true;
-                    this.formData.insAccountId = this.$store.state.admin.adminId;
-                    this.formRules = this.addRules;
-                    for (let index in this.members) {
-                        let item = this.members[index];
-                        if ((this.formData.poUserId!=null && this.formData.poUserId.indexOf(item.value) >= 0)
-                            || (this.formData.smUserId!=null && this.formData.smUserId.indexOf(item.value) >= 0)
-                            || (this.formData.devUserId!=null && this.formData.devUserId.indexOf(item.value) >= 0)) {
-                            item.disabled = true;
-                        } else {
-                            item.disabled = false;
-                        }
-                    }
-                })
-                .catch(() => {
-                    this.formData = {};
-                });
         },
         deleteProject(row) {
             this.$confirm(this.$t("main.whetherDelPJ"),this.$t("common.prompt"),{
@@ -541,31 +373,6 @@ export default {
         },
         confirmDelPJ(row) {
             row.insAccountId = this.$store.state.admin.adminId;
-            let data = Object.assign({}, row);
-            deleteProject(data).then(response => {
-                if (response.code) {
-                    if(document.getElementsByClassName("el-message").length>0){
-                        this.$message.closeAll();
-                    }
-                    this.$message.error(response.message);
-                    return false;
-                }
-                this.$message.success(this.$t("main.deleteSuccess"));
-                this.refreshProjects();
-            });
-        },
-        checkProjectName() {
-            this.formData.insAccountId = getAdminId();
-            let data = Object.assign({}, this.formData);
-            checkProjectName(data).then(response =>{
-                if (response.code) {
-                    if(document.getElementsByClassName("el-message").length>0){
-                        this.$message.closeAll();
-                    }
-                    this.$message.error(response.message);
-                    this.$refs.projectNameCheck.focus();
-                }
-            });
         }
     },
     data() {

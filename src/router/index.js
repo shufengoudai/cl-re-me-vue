@@ -15,16 +15,6 @@ import authAdmin from "../views/userManage/admin/authAdmin.vue";
 import authRole from "../views/userManage/admin/authRole.vue";
 import authPermissionRule from "../views/userManage/admin/authPermissionRule.vue";
 
-// 上传相关
-import tinymce from "../views/components/tinymce-demo.vue";
-//import upload from "../views/components/upload-demo.vue";
-import upload from "../views/components/uploadFile-demo.vue";
-
-// 广告管理
-import adSite from "../views/adManage/adSite.vue";
-import ad from "../views/adManage/ad.vue";
-import pj from "../views/project/pj.vue";
-import company from "../views/company/company.vue";
 
 // Vue.use(VueRouter);
 
@@ -88,63 +78,7 @@ export const constantRouterMap = [
                 component: main
             }
         ]
-    },
-    {
-        path: "/project",
-        component: Home,
-        redirect: "/project/main",
-        name: "项目",
-        noDropdown: true,
-        children: [
-            {
-                path: "main",
-                component: pj
-            }
-        ]
-    },
-    {
-        path: "/components",
-        redirect: "/components/uploadList",
-        component: Home,
-        name: "components",
-        icon: "tongyong",
-        children: [
-            {
-                path: "uploadList",
-                name: "上传图片的展示",
-                component: r =>
-                    require.ensure(
-                        [],
-                        () => r(require("../views/components/uploadList.vue")),
-                        "home"
-                    )
-            },
-            {
-                path: "tinymce",
-                name: "tinymce富文本编辑器",
-                component: tinymce
-            },
-            {
-                path: "upload",
-                name: "上传的demo",
-                component: upload
-            }
-        ]
-    },
-    {
-        path: "/companys",
-        component: Home,
-        redirect: "/companys/company",
-        icon: "qiye",
-        name: "企业后台",
-        noDropdown: true,
-        children: [
-            {
-                path: "company",
-                component: company
-            }
-        ]
-    },
+    }
 ];
 
 export default new VueRouter({
@@ -204,37 +138,6 @@ export const asyncRouterMap = [
                         }
                     }
                 ]
-            }
-        ]
-    },
-    {
-        path: "/adManage",
-        redirect: "/adManage/adSite",
-        component: Home,
-        icon: "guanggao",
-        name: "广告相关",
-        meta: {
-            // authRule: ["ad_manage"]
-        },
-        // noDropdown: true,
-        children: [
-            {
-                path: "adSite",
-                component: adSite,
-                name: "广告位管理",
-                icon: "",
-                meta: {
-                    // authRule: ["admin/ad/site/index"]
-                }
-            },
-            {
-                path: "ad",
-                component: ad,
-                name: "广告管理",
-                icon: "",
-                meta: {
-                    // authRule: ["admin/ad/ad/index"]
-                }
             }
         ]
     }

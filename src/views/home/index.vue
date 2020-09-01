@@ -129,11 +129,6 @@
                     @click.native="closeComment()">
                 </el-button>
             </div>
-            <comment
-                :commentRelativeId="companyId"
-                :commentType="3"
-                :key="commentBasekey">
-            </comment>
         </el-drawer>
 
         <el-container
@@ -231,18 +226,9 @@
 
 
 <script>
-import { getUser } from "../../api/company/company";
 import { mapGetters } from "vuex";
 import { password } from "../../api/auth/login";
 import { getAdminId } from "../../utils/auth";
-import {
-    getUserIdentify
-    } from "../../api/project/project";
-// import { removeStore } from "../../utils/store";
-import comment from "../../components/comment/comment";
-import { getNotice } from "../../api/notification/notification";
-import { utcFormatToLocal } from "../../utils/utcFormatToLocal";
-import { formatDateStr } from "../../filtres";
 export default {
     data() {
         let validatePass = (rule, value, callback) => {
@@ -317,9 +303,6 @@ export default {
             drawerWidth: ""
         };
     },
-    components: {
-        comment
-    },
     computed: {
         ...mapGetters({
             routers: "routers"
@@ -339,27 +322,6 @@ export default {
         }
     },
     mounted() {
-        let param = {
-            userId : this.$store.state.admin.adminId
-        };
-        getUserIdentify(param).then(response => {
-                if (response.code) {
-                    if(document.getElementsByClassName("el-message").length>0){
-                        this.$message.closeAll();
-                    }
-                    this.$message.error(response.message);
-                    return;
-                }
-                if (response.data) {
-                    this.buttonVisible = true;
-                }
-        });
-        getUser(getAdminId()).then(response => {
-            if(response.data){
-                this.userFullname = response.data.userFullname;
-                this.companyId = response.data.companyId;
-            }
-        });
         if (window.screen.height >= 1080) {
             this.noticeInfoHeight = "height:940px";
             this.drawerWidth = "margin-left:3.4%;width:62%";
@@ -488,7 +450,6 @@ export default {
                 this.closeComment();
             }
             this.drawer = !this.drawer;
-            this.getNotices();
         },
         closeDrawer(){
             this.drawer = !this.drawer;
@@ -508,28 +469,9 @@ export default {
         },
         showNewNotice(){
             this.activeName = "first";
-            this.getNotices();
         },
         showLaterDo(){
             this.activeName = "second";
-        },
-        getNotices(){
-            this.loading = true;
-            this.notices=[];
-            var param = {};
-            param.id=getAdminId();
-            getNotice(param).then(response =>{
-                this.loading = false;
-                if(response.data){
-                    this.notices.push(...response.data.notices);
-                    if(this.notices.length>0){
-                        for(var i=0;i<this.notices.length;i++){
-                            this.notices[i].img=this.generateAvatar(this.notices[i].userFullname);
-                            this.notices[i].insDtTime=formatDateStr(utcFormatToLocal(this.notices[i].insDtTime), "yyyy/MM/dd hh:mm");
-                        }
-                    }
-                }
-            });
         },
         generateAvatar(name) {
             var initials = "";
