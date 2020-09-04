@@ -66,6 +66,10 @@ export const constantRouterMap = [
         hidden: true
     },
     {
+        path:'/index-test',
+        component: () => import("../views/home/index-test.vue")
+      },
+    {
         path: "/projects",
         component: Home,
         redirect: "/projects/main",

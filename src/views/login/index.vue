@@ -125,7 +125,7 @@ export default {
                                 this.$message.error(response.message);
                                 return;
                             }
-                            let path = "/projects";
+                            let path = "/index-test";
                             // if (this.redirect && this.redirect != "/companys/company") {
                             //     path = this.redirect;
                             // }
