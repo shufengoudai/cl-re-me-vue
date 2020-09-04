@@ -22,7 +22,7 @@
             ref="ruleForm"
             label-position="left"
         >
-            <h3 class="title">{{ this.$t("login.title") }}</h3>
+            <h3 class="title">{{title}}</h3>
             <el-form-item prop="userName" class="item">
                 <el-input
                     :placeholder="this.$t('login.userName')"
@@ -85,6 +85,7 @@ export default {
             }
         };
         return {
+            title:"CRM客户关系管理系统",
             ruleForm: {
                 userName: "",
                 pwd: "",
