@@ -382,7 +382,7 @@ export default {
                 projectName: ""
             },
             search: "",
-            loading: false,
+            loading: true,
             formLoading: false,
             projects: [],
             formRules: {},
