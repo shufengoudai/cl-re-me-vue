@@ -85,7 +85,7 @@ export default {
             }
         };
         return {
-            title:"CRM客户关系管理系统",
+            title:"CRM",
             ruleForm: {
                 userName: "",
                 pwd: "",

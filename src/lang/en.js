@@ -1,6 +1,6 @@
 const en = {
     login: {
-        title: "Agile-MIS System",
+        title: "CRM System",
         userName: "Username",
         userNameMsg: "Please input username",
         pwd: "Password",
@@ -54,6 +54,13 @@ const en = {
         bug: "Bug",
         projectView: "Project View",
         bugNew: "BugNew"
+    },
+    menu:{
+        item1:"message",
+        item2:"contact person",
+        item3:"company",
+        item4:"project",
+        item5:"activity"
     },
     main: {
         search: " Search project(Enter)",

@@ -1,6 +1,6 @@
 const zh = {
     login: {
-        title: "Agile-MIS系统登录",
+        title: "CRM",
         userName: "用户名",
         userNameMsg: "请输入用户名",
         pwd: "密码",
@@ -55,6 +55,13 @@ const zh = {
         projectView: "项目概览",
         bugNew: "缺陷新"
     },
+    menu:{
+        item1:"信息提示",
+        item2:"联系人",
+        item3:"单位",
+        item4:"项目",
+        item5:"活动"
+},
     main: {
         search: "搜索项目（Enter）",
         totalRocords: "总记录数",

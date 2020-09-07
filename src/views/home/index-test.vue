@@ -13,35 +13,34 @@
                     <el-menu-item index="1">
 
                         <template slot="title">
-                            <span>信息提示</span>
+                            <span>{{$t('menu.item1')}}</span>
                         </template>
                     </el-menu-item>
                     <el-menu-item index="2">
 
                         <template slot="title">
-
-                            <span>联系人</span>
+                            <span>{{$t('menu.item2')}}</span>
                         </template>
                     </el-menu-item>
                     <el-menu-item index="3">
 
                         <template slot="title">
 
-                            <span>单位</span>
+                            <span>{{$t('menu.item3')}}</span>
                         </template>
                     </el-menu-item>
                     <el-menu-item index="4">
 
                         <template slot="title">
 
-                            <span>项目</span>
+                            <span>{{$t('menu.item4')}}</span>
                         </template>
                     </el-menu-item>
                     <el-menu-item index="5">
 
                         <template slot="title">
 
-                            <span>活动</span>
+                            <span>{{$t('menu.item5')}}</span>
                         </template>
                     </el-menu-item>
                 </el-menu>
@@ -106,9 +105,10 @@
                             <div slot="header" class="clearfix">
                                 <span>长期未联系</span>
                             </div>
-                            <div class="item">2</div>
-                            <div class="item">2</div>
-                            <div class="item">2</div>
+                            <div  v-for="(o,index) in 5" class="item" v-if="index&lt;2">{{index+1}}:{{o}}</div>
+                            <div  v-for="(o,index) in 5" class="item" v-if="index>2">kkkk</div>
+                        `
+
                         </el-card>
                     </el-col>
                 </el-row>
@@ -139,8 +139,11 @@
 <script>
     export default {
         name: "index-test",
+
         data(){
+
             return{
+                numlist:[],
                 editDialogVisible:false
             }
         },
@@ -148,6 +151,7 @@
             openCalendar(){
                 this.editDialogVisible=!this.editDialogVisible;
             }
+
 
         }
 
@@ -159,16 +163,12 @@
         height: 100%;
         font-weight: bold;
     }
-
     .crm-title {
         font-size: 20px;
     }
-
     .item {
        height: 20px;
     }
-
-
     .box-card {
         width: 700px;
     }
@@ -180,32 +180,18 @@
         color: white;
         text-align: center;
         line-height: 200px;
-
         .el-menu {
             border-right: none;
         }
-
     }
-
     .el-main {
         background-color: #E9EEF3;
         color: #333;
         text-align: left;
         padding-left: 100px;
-
     }
-
     body > .el-container {
         margin-bottom: 40px;
-    }
-
-    .el-container:nth-child(5) .el-aside,
-    .el-container:nth-child(6) .el-aside {
-        line-height: 260px;
-    }
-
-    .el-container:nth-child(7) .el-aside {
-        line-height: 320px;
     }
     .el-icon-date {
         position: relative;

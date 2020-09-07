@@ -1,6 +1,6 @@
 const ja = {
     login: {
-        title: "Agile-MIS システム",
+        title: "CRM システム",
         userName: "ユーザー",
         userNameMsg: "ユーザーを入力してください",
         pwd: "パスワード",
@@ -54,6 +54,13 @@ const ja = {
         bug: "バグ",
         projectView: "プロジェクト概要",
         bugNew: "バグNew"
+    },
+    menu:{
+        item1:"メーセジ",
+        item2:"連絡先",
+        item3:"会社",
+        item4:"项目",
+        item5:"活動"
     },
     main: {
         search: "検索（Enterキーを押して）",
