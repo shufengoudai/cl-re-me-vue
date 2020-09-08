@@ -61,7 +61,7 @@
                          <el-option label="洛阳市" value="luoyangshi"></el-option>
                      </el-select>
                  </el-col>
-                 <el-col :span="5" offset="1">
+                 <el-col :span="4" offset="1">
                      <el-input v-model="form.name" style="width: 400px"></el-input>
                  </el-col>
 
@@ -161,8 +161,7 @@
              </el-col>
          </el-row>
          <el-form-item label="其他信息">
-
-             <el-input type="textarea" v-model="form.desc"  style="width: 600px" ></el-input>
+             <el-input type="textarea" v-model="form.desc"  style="width: 600px" > </el-input>
          </el-form-item>
          <el-form-item label ="联系人职务">
              <el-input v-model="form.position" style="width: 260px"></el-input>
@@ -173,7 +172,7 @@
          <el-form-item label ="部门电话">
              <el-input v-model="form.position" style="width: 260px"></el-input>
          </el-form-item>
-         <center><el-button plain>保存</el-button></center>
+         <center><el-button plain>保存</el-button>></center>
 
      </el-form>
 
