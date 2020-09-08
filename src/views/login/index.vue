@@ -135,7 +135,7 @@
              </el-col>
              <el-col :span="12">
 
-                 <el-select v-model="form.place" placeholder="请选择上市场所">
+                 <el-select v-model="form.place" placeholder="上市场所">
                      <el-option label="上交所" value="shangjiaosuo"></el-option>
                      <el-option label="深交所" value="shenjiaosuo"></el-option>
 
@@ -162,7 +162,7 @@
          </el-row>
          <el-form-item label="其他信息">
 
-             <el-input type="textarea" v-model="form.desc"  style="width: 400px" ></el-input>
+             <el-input type="textarea" v-model="form.desc"  style="width: 600px" ></el-input>
          </el-form-item>
          <el-form-item label ="联系人职务">
              <el-input v-model="form.position" style="width: 260px"></el-input>
@@ -252,4 +252,5 @@
     .el-input v-model{
 
     }
+
 </style>
