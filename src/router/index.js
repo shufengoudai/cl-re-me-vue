@@ -64,7 +64,19 @@ export const constantRouterMap = [
     },
     {
       path:'/index-test',
-      component: () => import("../views/home/index-test.vue")
+      component: () => import("../views/home/index-test.vue"),
+        redirect: '/homedata',
+        children:[
+            {
+                path:'/homedata',
+                component: () => import('../views/home/homedata.vue')
+            },
+            {
+                path:'/err500',
+                component: () => import('../views/error/err500.vue')
+            },
+
+        ]
     },
     {
         path: "/login",
@@ -73,6 +85,10 @@ export const constantRouterMap = [
         name: "首页",
         hidden: true
     },
+    {
+        path:'/index-test',
+        component: () => import("../views/home/index-test.vue")
+      },
     {
         path: "/projects",
         component: Home,

@@ -12,14 +12,6 @@ export function userInfo(id, token) {
     });
 }
 
-export function getAuthType(userName, pwd) {
-    return axios({
-        url: "/admin/auth/login/authtype",
-        method: "post",
-        data: { userName, pwd }
-    });
-}
-
 export function loginName(userName, pwd, lang) {
     return axios({
         url: "/admin/auth/login/index",

@@ -40,57 +40,17 @@ const actions = {
         const pwd = userInfo.pwd ? userInfo.pwd : "";
         const lang = userInfo.lang;
         return new Promise((resolve, reject) => {
-            getAuthType(userName, pwd)
+            loginName(userName, pwd, lang)
                 .then(response => {
                     if (!response.code) {
-                        if (response.data == 1) {
-                            let data = {
-                                username : userInfo.userName,
-                                password : userInfo.pwd,
-                                grant_type : "password",
-                                client_id : "npmis-auth"
-                            }
-                            loginPmis(qs.stringify(data))
-                                .then(() => {
-                                    loginByNoPwd(userName, pwd, lang)
-                                    .then(response => {
-                                        if (!response.code) {
-                                            let data = response.data;
-                                            commit(types.RECEIVE_ADMIN_ID, data.id);
-                                            commit(types.RECEIVE_ADMIN_TOKEN, data.token);
-                                            commit(types.RECEIVE_ADMIN_AUTH_RULES, []);
-                                            global.name = data.id;
-                                        }
-
-                                        resolve(response);
-                                    })
-                                    .catch(error => {
-                                        reject(error);
-                                    });
-                                })
-                                .catch(error => {
-                                    reject(error);
-                                });
-                        } else {
-                            loginName(userName, pwd, lang)
-                                .then(response => {
-                                    if (!response.code) {
-                                        let data = response.data;
-                                        commit(types.RECEIVE_ADMIN_ID, data.id);
-                                        commit(types.RECEIVE_ADMIN_TOKEN, data.token);
-                                        commit(types.RECEIVE_ADMIN_AUTH_RULES, []);
-                                        global.name = data.id;
-                                    }
-
-                                    resolve(response);
-                                })
-                                .catch(error => {
-                                    reject(error);
-                                });
-                        }
-                    } else {
-                        resolve(response);
+                        let data = response.data;
+                        commit(types.RECEIVE_ADMIN_ID, data.id);
+                        commit(types.RECEIVE_ADMIN_TOKEN, data.token);
+                        commit(types.RECEIVE_ADMIN_AUTH_RULES, []);
+                        global.name = data.id;
                     }
+
+                    resolve(response);
                 })
                 .catch(error => {
                     reject(error);
