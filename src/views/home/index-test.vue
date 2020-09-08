@@ -19,28 +19,30 @@
                     <el-menu-item index="2">
 
                         <template slot="title">
-                            <span>{{$t('menu.item2')}}</span>
+                            <el-button
+                                @click="toContact"
+                            >联系人</el-button>
                         </template>
                     </el-menu-item>
                     <el-menu-item index="3">
 
                         <template slot="title">
 
-                            <span>{{$t('menu.item3')}}</span>
+                            <span>单位</span>
                         </template>
                     </el-menu-item>
                     <el-menu-item index="4">
 
                         <template slot="title">
 
-                            <span>{{$t('menu.item4')}}</span>
+                            <span>项目</span>
                         </template>
                     </el-menu-item>
                     <el-menu-item index="5">
 
                         <template slot="title">
 
-                            <span>{{$t('menu.item5')}}</span>
+                            <span>活动</span>
                         </template>
                     </el-menu-item>
                 </el-menu>
@@ -59,13 +61,21 @@
     export default {
         name: "index-test",
         //初始化首页
-        methods:{
-            gotolink(){
+        data(){
+            return{
 
-                this.$router.replace('/err500')
+            }
+        },
+        methods: {
+            openCalendar(){
+                this.editDialogVisible=!this.editDialogVisible;
+            },
+            toContact(){
+                this.$router.push({
+                    path: "/contact/info"
+                })
             }
         }
-
 
     }
 </script>
@@ -128,5 +138,4 @@
         left: 50px;
         font-size: 20px;
     }
-
 </style>

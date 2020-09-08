@@ -69,13 +69,25 @@ export const constantRouterMap = [
         children:[
             {
                 path:'/homedata',
-                component: () => import('../views/home/homedata.vue')
+                component: () => import('../views/home/homedata')
             },
             {
                 path:'/err500',
-                component: () => import('../views/error/err500.vue')
+                component: () => import('../views/error/err500')
             },
 
+        ]
+    },
+    //跳转到contact一览
+    {
+        path: '/index-test',
+        component: () => import("../views/home/index-test"),
+            redirect: '/contact/info',
+        children: [
+            {
+                path: '/contact/info',
+                component: () => import("../views/project/Contact")
+            }
         ]
     },
     {
