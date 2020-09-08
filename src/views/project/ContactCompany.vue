@@ -1,6 +1,6 @@
 <template>
     <el-form ref="form" :model="form" label-width="100px">
-        <h3 style="text-align: center">单位信息</h3>
+        <h4 style="text-align: center">单位信息</h4>
         <el-row>
             <el-dropdown>
                 <el-button type="primary">
@@ -26,6 +26,11 @@
 
             </el-col>
         </el-row>
+
+
+
+
+
         <br>
         <br>
         <el-form-item label ="单位名">
@@ -56,7 +61,7 @@
                         <el-option label="洛阳市" value="luoyangshi"></el-option>
                     </el-select>
                 </el-col>
-                <el-col :span="5" offset="1">
+                <el-col :span="4" offset="1">
                     <el-input v-model="form.name" style="width: 400px"></el-input>
                 </el-col>
 
@@ -104,9 +109,25 @@
                     <el-input v-model="form.companyCapital" style="width: 150px"></el-input>
                 </el-form-item>
             </el-col>
+            <el-col :span="12" offset="1">
+                <el-select v-model="form.type" placeholder="请选择币种">
+                    <el-option label="人民币" value="renminbi"></el-option>
+                    <el-option label="日元" value="riyuan"></el-option>
+                    <el-option label="美金" value="meijin"></el-option>
+                </el-select>
+            </el-col>
         </el-row>
 
+
+
+
         <el-row>
+            <el-col :span="3">
+                <el-form-item label ="是否上市">
+                    <el-input v-model="form.companyStock" style="width: 150px"></el-input>
+                </el-form-item>
+            </el-col>
+
             <el-col :span="4">
                 <el-form-item label ="股票代码">
                     <el-input v-model="form.companyStock" style="width: 150px"></el-input>
@@ -114,10 +135,10 @@
             </el-col>
             <el-col :span="12">
 
-                <el-select v-model="form.Address" placeholder="请选择市">
-                    <el-option label="南京市" value="nanjingshi"></el-option>
-                    <el-option label="大连市" value="dalianshi"></el-option>
-                    <el-option label="洛阳市" value="luoyangshi"></el-option>
+                <el-select v-model="form.place" placeholder="上市场所">
+                    <el-option label="上交所" value="shangjiaosuo"></el-option>
+                    <el-option label="深交所" value="shenjiaosuo"></el-option>
+
                 </el-select>
             </el-col>
         </el-row>
@@ -140,8 +161,7 @@
             </el-col>
         </el-row>
         <el-form-item label="其他信息">
-
-            <el-input type="textarea" v-model="form.desc"  style="width: 400px" ></el-input>
+            <el-input type="textarea" v-model="form.desc"  style="width: 600px" > </el-input>
         </el-form-item>
         <el-form-item label ="联系人职务">
             <el-input v-model="form.position" style="width: 260px"></el-input>
@@ -152,7 +172,7 @@
         <el-form-item label ="部门电话">
             <el-input v-model="form.position" style="width: 260px"></el-input>
         </el-form-item>
-        <center><el-button plain>保存</el-button></center>
+        <center><el-button plain>保存</el-button>></center>
 
     </el-form>
 
@@ -211,6 +231,8 @@
 
 
 
+
+
 <style type="text/scss" lang="scss">
 
     .el-dropdown {
@@ -222,11 +244,13 @@
     .el-icon-arrow-down {
         font-size: 12px;
     }
-    h3{
+    h4{
         color: #1c1c1c;
 
     }
     .el-input v-model{
 
     }
+
 </style>
+
