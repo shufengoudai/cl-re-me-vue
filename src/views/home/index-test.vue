@@ -16,12 +16,10 @@
                             <span>{{$t('menu.item1')}}</span>
                         </template>
                     </el-menu-item>
-                    <el-menu-item index="2">
+                    <el-menu-item index="2" @click="toContact">
 
                         <template slot="title">
-                            <el-button
-                                @click="toContact"
-                            >联系人</el-button>
+                            <span>{{this.$t('menu.item2')}}</span>
                         </template>
                     </el-menu-item>
                     <el-menu-item index="3">

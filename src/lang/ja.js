@@ -600,6 +600,10 @@ const ja = {
     },
     comment: {
         title: "コメント"
+    },
+    contact: {
+        addContacter: "新しい連絡先",
+        editContacter: "連絡先を編集"
     }
 };
 

@@ -600,6 +600,10 @@ const zh = {
     },
     comment: {
         title: "评论"
+    },
+    contact: {
+        addContacter: "新建联络人",
+        editContacter: "编辑联络人"
     }
 };
 

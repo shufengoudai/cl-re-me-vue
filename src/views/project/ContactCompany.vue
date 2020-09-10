@@ -26,13 +26,8 @@
 
             </el-col>
         </el-row>
-
-
-
-
-
-        <br>
-        <br>
+        <br/>
+        <br/>
         <el-form-item label ="单位名">
             <el-input v-model="form.companyName" style="width: 400px"></el-input>
         </el-form-item>
@@ -161,16 +156,16 @@
             </el-col>
         </el-row>
         <el-form-item label="其他信息">
-            <el-input type="textarea" v-model="form.desc"  style="width: 600px" > </el-input>
+            <el-input type="textarea" v-model="this.form.desc"  style="width: 600px" > </el-input>
         </el-form-item>
         <el-form-item label ="联系人职务">
-            <el-input v-model="form.position" style="width: 260px"></el-input>
+            <el-input v-model="this.form.position" style="width: 260px"></el-input>
         </el-form-item>
         <el-form-item label ="联系人部门">
-            <el-input v-model="form.position" style="width: 260px"></el-input>
+            <el-input v-model="this.form.position" style="width: 260px"></el-input>
         </el-form-item>
         <el-form-item label ="部门电话">
-            <el-input v-model="form.position" style="width: 260px"></el-input>
+            <el-input v-model="this.form.position" style="width: 260px"></el-input>
         </el-form-item>
         <center><el-button plain>保存</el-button>></center>
 

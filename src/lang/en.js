@@ -600,6 +600,10 @@ const en = {
     },
     comment: {
         title: "Comment"
+    },
+    contact: {
+        addContacter: "New contacter",
+        editContacter: "Edit Contacter"
     }
 };
 
