@@ -30,3 +30,14 @@ export function getContacterCompanyCurrent(id,method = "get") {
         }
     })
 }
+
+export function getContacterCurrent(id,method = "get") {
+    let url = "/contact/edit/info";
+    return axios({
+        url: url,
+        method: method,
+        params: {
+            id: id
+        }
+    })
+}
