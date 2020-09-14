@@ -416,22 +416,25 @@
                             <el-dropdown
                                 split-button
                                 type="primary"
-                            >{{contactCompanyForm.companyType}}<el-dropdown-menu slot="dropdown">
-                                <el-dropdown-item @click.native="contactCompanyForm.companyType = '当前单位'">当前单位</el-dropdown-item>
-                                <el-dropdown-item @click.native="contactCompanyForm.companyType = '曾就职单位'">曾就职单位</el-dropdown-item>
+                            >{{companyStatusStr}}<el-dropdown-menu slot="dropdown">
+                                <el-dropdown-item @click.native="companyStatusStr = '当前单位';contactCompanyForm.companyStatus = 0">当前单位</el-dropdown-item>
+                                <el-dropdown-item @click.native="companyStatusStr = '曾就职单位';contactCompanyForm.companyStatus = 1">曾就职单位</el-dropdown-item>
                             </el-dropdown-menu>
                             </el-dropdown>
                         </el-col>
-                        <el-dropdown
-                        >
-                            <el-button
-                                type="primary"
-                            >选择现有单位<i class="el-icon-arrow-down el-icon--right"></i>
-                            </el-button>
-                            <el-dropdown-menu slot="dropdown">
-                                <el-dropdown-item></el-dropdown-item>
-                            </el-dropdown-menu>
-                        </el-dropdown>
+                        <el-col span="4">
+                            <el-select
+                                placeholder="选择现有单位"
+                                v-model="contactCompanyForm.companyName"
+                            >
+                                <el-option
+                                    v-for="companyItem in companyList"
+                                    :label="companyItem.companyName"
+                                    :key="companyItem.id"
+                                    :value="companyItem.companyName"
+                                ></el-option>
+                            </el-select>
+                        </el-col>
                     </el-row>
                     <br/>
                     <br/>
@@ -441,81 +444,81 @@
 
                     <el-form-item label="所在国家">
                         <el-select v-model="contactCompanyForm.companyNation" placeholder="请选择国家">
-                            <el-option label="中国" value="zhongguo"></el-option>
-                            <el-option label="日本" value="riben"></el-option>
-                            <el-option label="美国" value="meiguo"></el-option>
+                            <el-option label="中国" value="0"></el-option>
+                            <el-option label="日本" value="1"></el-option>
+                            <el-option label="美国" value="2"></el-option>
                         </el-select>
                     </el-form-item>
 
-                    <el-form-item label="地址">
+                    <el-form-item v-model="contactCompanyForm.companyAddress" label="地址">
                         <el-row>
-                            <el-col :span="2">
-                                <el-select v-model="contactCompanyForm.companyAddress" placeholder="请选择省">
-                                    <el-option label="江苏省" value="jiangsusheng"></el-option>
-                                    <el-option label="辽宁省" value="liaoningsheng"></el-option>
-                                    <el-option label="河南省" value="henansheng"></el-option>
-                                </el-select>
-                            </el-col>
-                            <el-col :span="2" offset="1">
-                                <el-select v-model="contactCompanyForm.Address" placeholder="请选择市">
-                                    <el-option label="南京市" value="nanjingshi"></el-option>
-                                    <el-option label="大连市" value="dalianshi"></el-option>
-                                    <el-option label="洛阳市" value="luoyangshi"></el-option>
+                            <el-col :span="4">
+                                <el-select placeholder="请选择省">
+                                    <el-option label="江苏省" value="江苏省"></el-option>
+                                    <el-option label="辽宁省" value="辽宁省"></el-option>
+                                    <el-option label="河南省" value="河南省"></el-option>
                                 </el-select>
                             </el-col>
                             <el-col :span="4" offset="1">
-                                <el-input v-model="contactCompanyForm.name" style="width: 400px"></el-input>
+                                <el-select placeholder="请选择市">
+                                    <el-option label="南京市" value="南京市"></el-option>
+                                    <el-option label="大连市" value="大连市"></el-option>
+                                    <el-option label="洛阳市" value="洛阳市"></el-option>
+                                </el-select>
                             </el-col>
-
+                            <el-col :span="8" offset="1">
+                                <el-input style="width: 400px"></el-input>
+                            </el-col>
                         </el-row>
                     </el-form-item>
 
 
                     <el-row>
-                        <el-col :span="3">
+                        <el-col :span="8">
                             <el-form-item label="单位类型">
                                 <el-select v-model="contactCompanyForm.companyType" placeholder="请选择单位类型">
-                                    <el-option label="国有" value="guoyou"></el-option>
-                                    <el-option label="私有" value="siyou"></el-option>
+                                    <el-option label="国有" value="0"></el-option>
+                                    <el-option label="私营" value="1"></el-option>
+                                    <el-option label="企事业单位" value="2"></el-option>
                                 </el-select>
 
                             </el-form-item>
                         </el-col>
-                        <el-col :span="3">
+                        <el-col :span="16">
                             <el-form-item label="所属行业">
-                                <el-select v-model="contactCompanyForm.work"  placeholder="请选择行业名称">
-                                    <el-option label="制造业" value="ruanjiankaifa"></el-option>
-                                    <el-option label="矿业" value="shangpinchukou"></el-option>
-                                    <el-option label="农业" value="loupanxiaoshou"></el-option>
+                                <el-select v-model="contactCompanyForm.companyIndusry"  placeholder="请选择行业名称">
+                                    <el-option label="制造业" value="0"></el-option>
+                                    <el-option label="矿业" value="1"></el-option>
+                                    <el-option label="农业" value="2"></el-option>
                                 </el-select>
                             </el-form-item>
                         </el-col>
                     </el-row>
                     <el-form-item label="主营业务">
                         <el-select v-model="contactCompanyForm.companyBusiness"  placeholder="请选择业务名称">
-                            <el-option label="软件开发" value="ruanjiankaifa"></el-option>
-                            <el-option label="商品出口" value="shangpinchukou"></el-option>
-                            <el-option label="楼盘销售" value="loupanxiaoshou"></el-option>
+                            <el-option label="软件开发" value="软件开发"></el-option>
+                            <el-option label="商品出口" value="商品出口"></el-option>
+                            <el-option label="楼盘销售" value="楼盘销售"></el-option>
                         </el-select>
                     </el-form-item>
 
 
                     <el-row>
-                        <el-col :span="3">
+                        <el-col :span="8">
                             <el-form-item label ="企业人数">
-                                <el-input v-model="companyEmployees" style="width: 150px"></el-input>
+                                <el-input v-model="contactCompanyForm.companyEmployees" style="width: 150px"></el-input>
                             </el-form-item>
                         </el-col>
-                        <el-col :span="3">
+                        <el-col :span="8">
                             <el-form-item label ="资本金">
                                 <el-input v-model="contactCompanyForm.companyCapital" style="width: 150px"></el-input>
                             </el-form-item>
                         </el-col>
-                        <el-col :span="12" offset="1">
-                            <el-select v-model="contactCompanyForm.type" placeholder="请选择币种">
-                                <el-option label="人民币" value="renminbi"></el-option>
-                                <el-option label="日元" value="riyuan"></el-option>
-                                <el-option label="美金" value="meijin"></el-option>
+                        <el-col :span="4" offset="1">
+                            <el-select v-model="contactCompanyForm.companyCaptialCurrency" placeholder="请选择币种">
+                                <el-option label="人民币" value="0"></el-option>
+                                <el-option label="日元" value="1"></el-option>
+                                <el-option label="美金" value="2"></el-option>
                             </el-select>
                         </el-col>
                     </el-row>
@@ -524,22 +527,25 @@
 
 
                     <el-row>
-                        <el-col :span="3">
+                        <el-col :span="8">
                             <el-form-item label ="是否上市">
-                                <el-input v-model="contactCompanyForm.companyStock" style="width: 150px"></el-input>
+                                <el-select v-model="contactCompanyForm.companyStockFlag">
+                                    <el-option label="是" value="0"></el-option>
+                                    <el-option label="否" value="1"></el-option>
+                                </el-select>
                             </el-form-item>
                         </el-col>
 
-                        <el-col :span="4">
+                        <el-col :span="8">
                             <el-form-item label ="股票代码">
                                 <el-input v-model="contactCompanyForm.companyStock" style="width: 150px"></el-input>
                             </el-form-item>
                         </el-col>
-                        <el-col :span="12">
+                        <el-col :span="4" offset="1">
 
-                            <el-select v-model="contactCompanyForm.place" placeholder="上市场所">
-                                <el-option label="上交所" value="shangjiaosuo"></el-option>
-                                <el-option label="深交所" value="shenjiaosuo"></el-option>
+                            <el-select v-model="contactCompanyForm.companyStockMarket" placeholder="">
+                                <el-option label="上交所" value="0"></el-option>
+                                <el-option label="深交所" value="1"></el-option>
 
                             </el-select>
                         </el-col>
@@ -547,38 +553,38 @@
 
 
                     <el-form-item label ="拥有资质">
-                        <el-input v-model="companyQualification" style="width: 150px"></el-input>
+                        <el-input v-model="contactCompanyForm.companyQualification" style="width: 150px"></el-input>
                     </el-form-item>
 
                     <el-row>
-                        <el-col :span="5">
+                        <el-col :span="12">
                             <el-form-item label ="联系电话">
-                                <el-input v-model="companyTel" style="width: 350px"></el-input>
+                                <el-input v-model="contactCompanyForm.companyTel" style="width: 350px"></el-input>
                             </el-form-item>
                         </el-col>
-                        <el-col :span="3">
+                        <el-col :span="12">
                             <el-form-item label ="邮箱">
-                                <el-input v-model="mail" style="width: 200px"></el-input>
+                                <el-input v-model="contactCompanyForm.companyMail" style="width: 200px"></el-input>
                             </el-form-item>
                         </el-col>
                     </el-row>
                     <el-form-item label="其他信息">
-                        <el-input type="textarea" v-model="this.contactCompanyForm.desc"  style="width: 600px" > </el-input>
+                        <el-input type="textarea" v-model="contactCompanyForm.companyMemo"  style="width: 600px" > </el-input>
                     </el-form-item>
                     <el-form-item label ="联系人职务">
-                        <el-input v-model="this.contactCompanyForm.position" style="width: 260px"></el-input>
+                        <el-input v-model="this.contactCompanyForm.contactPosition" style="width: 260px"></el-input>
                     </el-form-item>
                     <el-form-item label ="联系人部门">
-                        <el-input v-model="this.contactCompanyForm.position" style="width: 260px"></el-input>
+                        <el-input v-model="this.contactCompanyForm.contactDepart" style="width: 260px"></el-input>
                     </el-form-item>
                     <el-form-item label ="部门电话">
-                        <el-input v-model="this.contactCompanyForm.position" style="width: 260px"></el-input>
+                        <el-input v-model="this.contactCompanyForm.contactDepartTel" style="width: 260px"></el-input>
                     </el-form-item>
 
                 </el-form>
                 <span slot="footer" class="dialog-footer">
                     <div align="center">
-                        <el-button type="primary" @click="">保存</el-button>
+                        <el-button type="primary" @click="contactCompanySubmit">保存</el-button>
                     </div>
                 </span>
             </el-dialog>
@@ -591,7 +597,9 @@ import {
         listContactInfo,
         deleteContactLogical,
         getContacterCurrent,
-        getMyWindowList
+        getMyWindowList,
+        getCompanyList,
+        contactCompanySave
     } from "../../api/contacts/contacts"
     const contactInfoJson = {
         id: '',
@@ -678,16 +686,37 @@ import {
                 //单位信息
                 companyDialogVisible: false,
                 contactCompanyForm: {
-                    companyType: '当前单位',
-                    name: '',
-                    region: '',
-                    date1: '',
-                    date2: '',
-                    delivery: false,
-                    type: [],
-                    resource: '',
-                    desc: ''
-                }
+                    contactId: '',
+                    companyStatus: '当前单位',
+                    companyName: '',
+                    companyNation: '',
+                    companyAddress: '',
+                    companyType: '',
+                    companyIndusry: '',
+                    companyBusiness: '',
+                    companyEmployees: '',
+                    companyCapital: '',
+                    companyCaptialCurrency: '',
+                    companyStockFlag: '',
+                    companyStock: '',
+                    companyStockMarket: '',
+                    companyQualification: '',
+                    companyTel: '',
+                    companyMail: '',
+                    companyMemo: '',
+                    contactPosition: '',
+                    contactDepart: '',
+                    contactDepartTel: ''
+                },
+                contactIdTemp: '',
+                companyStatusStr: '',
+                companyList: [],
+                companyFormMap: {
+                    add : '添加单位',
+                    edit: '编辑单位'
+                },
+                companyMode: '',
+                companyFormLoading: false
             }
         },
         mounted() {
@@ -718,6 +747,19 @@ import {
                 .catch(() => {
                     this.userList = [];
                 });
+            getCompanyList()
+                .then(response => {
+                    if (response.code) {
+                        if(document.getElementsByClassName("el-message").length>0){
+                            this.$message.closeAll();
+                        }
+                        this.$message.error(response.message);
+                    }
+                    this.companyList = response.data.companyList || [];
+                })
+                .catch(() => {
+                    this.companyList = [];
+                });
         },
         methods: {
             handleClose(done) {
@@ -735,7 +777,7 @@ import {
                 }
             },
             cancelDialogEdit(){
-                this.contacterForm.contactCompanyCurrent = '';
+                this.contacterForm = [];
                 this.dialogVisible = false
             },
             contactDialogSubmit(){
@@ -785,16 +827,50 @@ import {
                         }
                         this.contacterForm = response.data || [];
                         this.contacterForm.contactCompanyCurrent = row.companyName;
+                        this.contactCompanyForm.contactId = row.id;
+                        this.contactIdTemp = row.id;
                         this.dialogVisible = true;
                     })
             },
             createContactCompany(){
+                this.companyMode = 'add';
                 this.companyDialogVisible = true;
+                if (typeof this.contactCompanyForm.contactId == 'undefined' || this.contactCompanyForm.contactId == null || this.contactCompanyForm.contactId == ''){
+                    this.contactCompanyForm.contactId = this.contactIdTemp;
+                }
             },
             editContactCompany(){
+                this.companyMode = 'edit';
                 this.companyDialogVisible = true;
             },
             userWindowSelectedChanged(){
+
+            },
+            contactCompanySubmit(){
+                this.$refs["contactCompanyForm"].validate(valid => {
+                    if (valid) {
+                        this.companyFormLoading = true;
+                        let data = Object.assign({}, this.contactCompanyForm);
+                        if (this.companyMode == 'add') {
+                            contactCompanySave(data).then(response => {
+                                this.formLoading = false;
+                                if (response.code == 10) {
+                                    if(document.getElementsByClassName("el-message").length>0){
+                                        this.$message.closeAll();
+                                    }
+                                    this.$message.error(response.message);
+                                    return false;
+                                }
+                                this.$message.success(this.$t("main.operateSuccess"));
+                                this.companyDialogVisible = false;
+                                // 刷新表单
+                                this.resetContactCompanyForm();
+                            });
+                        } else {
+
+                        }
+                    }
+                });
 
             }
         },

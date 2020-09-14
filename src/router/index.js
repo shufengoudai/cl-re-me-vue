@@ -75,7 +75,6 @@ export const constantRouterMap = [
                 path:'/err500',
                 component: () => import('../views/error/err500')
             },
-
         ]
     },
     //跳转到contact一览

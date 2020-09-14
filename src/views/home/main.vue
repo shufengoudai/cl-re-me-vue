@@ -55,10 +55,10 @@
                 min-width="20"
             >
                 <template slot-scope="scope">
-                    <el-tag 
-                        type="info" 
-                        size="small" 
-                        effect="dark" 
+                    <el-tag
+                        type="info"
+                        size="small"
+                        effect="dark"
                         v-if="scope.row.userFullName!=null"
                     >{{ scope.row.userFullName }}</el-tag>
                 </template>
@@ -350,12 +350,12 @@ export default {
             return true;
         },
         // 刷新表单
-        resetForm() {
-            if (this.$refs["dataForm"]) {
+        resetContactCompanyForm() {
+            if (this.$refs["contactCompanyForm"]) {
                 // 清空验证信息表单
-                this.$refs["dataForm"].clearValidate();
+                this.$refs["contactCompanyForm"].clearValidate();
                 // 刷新表单
-                this.$refs["dataForm"].resetFields();
+                this.$refs["contactCompanyForm"].resetFields();
             }
         },
         refreshProjects() {

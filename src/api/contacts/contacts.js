@@ -57,3 +57,12 @@ export function getCompanyList(method = "post") {
         method: method
     })
 }
+
+export function contactCompanySave(data,method = 'post') {
+    let url = "/contact/company/save";
+    return axios({
+        url: url,
+        method: method,
+        data: data
+    })
+}
