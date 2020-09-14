@@ -328,13 +328,10 @@
                                     label-width="90px"
                                 >
                                     <div>
-                                        <el-link type="primary" href="" target="_blank">中国电信</el-link>
-                                    </div>
-                                    <div>
-                                        <el-link type="primary" href="" target="_blank">中国移动</el-link>
-                                    </div>
-                                    <div>
-                                        <el-link type="primary" href="" target="_blank">中国联通</el-link>
+                                        <el-link
+                                            type="primary"
+                                            v-for="companyPast in this.contacterForm.contactCompanyPast"
+                                        >{{companyPast}}</el-link>
                                     </div>
                                 </el-form-item>
                                 <el-form-item label="">
@@ -360,8 +357,17 @@
                                 <el-form-item label="我方窗口">
                                     <el-select
                                         placeholder=""
+                                        v-model="contacterForm.userWindowList"
+                                        multiple
+                                        filterable
+                                        @change="userWindowSelectedChanged()"
                                     >
-                                        <el-option></el-option>
+                                        <el-option
+                                            v-for="userItem in userList"
+                                            :label="userItem.userName"
+                                            :key="userItem.id"
+                                            :value="userItem.userName"
+                                        ></el-option>
                                     </el-select>
                                 </el-form-item>
                             </el-main>
@@ -406,28 +412,26 @@
                 >
                     <h4 style="text-align: center">单位信息</h4>
                     <el-row>
-                        <el-dropdown
-                        >
-                            <el-button type="primary">
-                                选择现有单位<i class="el-icon-arrow-down el-icon--right"></i>
-                            </el-button>
-                            <el-dropdown-menu slot="dropdown">
-                                <el-dropdown-item>联迪信息技术有限公司</el-dropdown-item>
-                                <el-dropdown-item>任天堂株式会社</el-dropdown-item>
-                                <el-dropdown-item>亚马逊公司</el-dropdown-item>
-                            </el-dropdown-menu>
-                        </el-dropdown>
-
                         <el-col span="20">
-                            <el-dropdown split-button type="primary" @click="handleClick">
-                                当前单位
-                                <el-dropdown-menu slot="dropdown">
-                                    <el-dropdown-item>联迪信息技术有限公司</el-dropdown-item>
-                                    <el-dropdown-item>任天堂株式会社</el-dropdown-item>
-                                    <el-dropdown-item>亚马逊公司</el-dropdown-item>
-                                </el-dropdown-menu>
+                            <el-dropdown
+                                split-button
+                                type="primary"
+                            >{{contactCompanyForm.companyType}}<el-dropdown-menu slot="dropdown">
+                                <el-dropdown-item @click.native="contactCompanyForm.companyType = '当前单位'">当前单位</el-dropdown-item>
+                                <el-dropdown-item @click.native="contactCompanyForm.companyType = '曾就职单位'">曾就职单位</el-dropdown-item>
+                            </el-dropdown-menu>
                             </el-dropdown>
                         </el-col>
+                        <el-dropdown
+                        >
+                            <el-button
+                                type="primary"
+                            >选择现有单位<i class="el-icon-arrow-down el-icon--right"></i>
+                            </el-button>
+                            <el-dropdown-menu slot="dropdown">
+                                <el-dropdown-item></el-dropdown-item>
+                            </el-dropdown-menu>
+                        </el-dropdown>
                     </el-row>
                     <br/>
                     <br/>
@@ -586,8 +590,8 @@
 import {
         listContactInfo,
         deleteContactLogical,
-    getContacterCompanyCurrent,
-        getContacterCurrent
+        getContacterCurrent,
+        getMyWindowList
     } from "../../api/contacts/contacts"
     const contactInfoJson = {
         id: '',
@@ -651,8 +655,10 @@ import {
                     contactPhoto: '',
                     //编辑联络人信息
                     contactCompanyCurrent: [],
-                    contactCompanyPast: []
+                    contactCompanyPast: [],
+                    userWindowList: []
                 },
+                userList: [],
                 ages: [],
                 ageGroup: ['30岁不到','30至40岁','40至50岁'],
                 fits: ['cover'],
@@ -672,6 +678,7 @@ import {
                 //单位信息
                 companyDialogVisible: false,
                 contactCompanyForm: {
+                    companyType: '当前单位',
                     name: '',
                     region: '',
                     date1: '',
@@ -697,6 +704,19 @@ import {
                 })
                 .catch(() => {
                     this.contacts = [];
+                });
+            getMyWindowList()
+                .then(response => {
+                    if (response.code) {
+                        if(document.getElementsByClassName("el-message").length>0){
+                            this.$message.closeAll();
+                        }
+                        this.$message.error(response.message);
+                    }
+                    this.userList = response.data.userList || [];
+                })
+                .catch(() => {
+                    this.userList = [];
                 });
         },
         methods: {
@@ -755,20 +775,6 @@ import {
             },
             editContact(row){
                 this.mode = "edit";
-                // getContacterCompanyCurrent(row.id)
-                //     .then(response => {
-                //         if (response.code) {
-                //             if(document.getElementsByClassName("el-message").length>0){
-                //                 this.$message.closeAll();
-                //             }
-                //             this.$message.error(response.message);
-                //         }
-                //         this.contactCompanyCurrent = response.data || '';
-                //         this.dialogVisible = true;
-                //     })
-                //     .catch(() => {
-                //         this.contactCompanyCurrent = '';
-                //     });
                 getContacterCurrent(row.id)
                     .then(response => {
                         if (response.code) {
@@ -787,6 +793,9 @@ import {
             },
             editContactCompany(){
                 this.companyDialogVisible = true;
+            },
+            userWindowSelectedChanged(){
+
             }
         },
         computed: {

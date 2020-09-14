@@ -41,3 +41,19 @@ export function getContacterCurrent(id,method = "get") {
         }
     })
 }
+
+export function getMyWindowList(method = "post") {
+    let url = "/user/list/name";
+    return axios({
+        url: url,
+        method: method
+    })
+}
+
+export function getCompanyList(method = "post") {
+    let url = "/company/list/name";
+    return axios({
+        url: url,
+        method: method
+    })
+}
